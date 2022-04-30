@@ -3,108 +3,165 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import "./Stock.css";
 
-const Stock = () => {
-  let limitedDates, limitedPrices;
-  const [coordinates, setCoordinates] = useState({ x: [], y: [] });
-  const [stockSymbol, setStockSymbol] = useState(" ");
+const Stock = ({ x, y, z }) => {
+  // data----------------------------------------------->
+  const data = {
+    // labels: x,
+    labels: [
+      "1-2-12",
+      "2-2-12",
+      "3-2-12",
+      "4-2-12",
+      "5-2-12",
+      "6-2-12",
+      "7-2-12",
+      "8-2-12",
+      "9-2-12",
+      "10-2-12",
+      "11-2-12",
+      "12-2-12",
+      "13-2-12",
+      "14-2-12",
+      "15-2-12",
+      "16-2-12",
+      "17-2-12",
+      "18-2-12",
+      "19-2-12",
+      "20-2-12",
+      "21-2-12",
+      "22-2-12",
+      "23-2-12",
+      "24-2-12",
+      "25-2-12",
+      "26-2-12",
+      "27-2-12",
+      "28-2-12",
+      "29-2-12",
+      "30-2-12",
+    ],
+    datasets: [
+      {
+        label: "Opening prices",
+        // data: y,
+        data: [
+          12,
+          19,
+          3,
+          5,
+          2,
+          3,
+          5,
+          8,
+          2,
+          0,
+          1,
+          6,
+          2,
+          7,
+          8,
+          9,
+          8,
+          19,
+          21,
+          5,
+          3,
+          8,
+          2,
+          5,
+          9,
+          0,
+          1,
+          4,
+          6,
+          7,
+          9,
+          3,
+        ],
+        backgroundColor: ["rgba(255, 102, 102)"],
+        borderColor: ["rgba(255, 102, 102, 1)"],
+        borderWidth: 2,
+      },
 
-  const fetchStock = () => {
-    const API_KEY = "nACDvrnheG48-Z-xfLqv";
-    let API_Call = `https://data.nasdaq.com/api/v3/datasets/WIKI/${stockSymbol}/data.json?api_key=${API_KEY}
-`;
-    try {
-      fetch(API_Call)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(stockSymbol);
-          console.log(data);
-          for (const [key, v] of data["dataset_data"]["data"].entries()) {
-            setCoordinates(coordinates.x.push(v[0]));
-            setCoordinates(coordinates.y.push(v[1]));
-          }
-
-          limitedDates = coordinates.x.slice(0, 100);
-          limitedPrices = coordinates.y.slice(0, 100);
-          console.log(limitedDates); // dates
-          console.log(limitedPrices); // prices
-        });
-    } catch (err) {
-      console.error(err);
-    }
+      {
+        label: "Closing prices",
+        // data: z,
+        data: [
+          21,
+          5,
+          3,
+          8,
+          2,
+          5,
+          9,
+          0,
+          1,
+          4,
+          6,
+          7,
+          9,
+          3,
+          6,
+          5,
+          2,
+          7,
+          12,
+          19,
+          3,
+          5,
+          2,
+          3,
+          5,
+          8,
+          2,
+          0,
+          1,
+          6,
+          2,
+          7,
+        ],
+        backgroundColor: ["rgba(110, 110, 253)"],
+        borderColor: ["rgba(110, 110, 253, 1)"],
+        borderWidth: 1.5,
+        yAxisId: "prices",
+      },
+    ],
   };
-
-  const handleStockSymbol = (e) => {
-    e.preventDefault();
-    setStockSymbol(e.target.value);
+  // optiions------------------------------------------->
+  const options = {
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Days of the month",
+        },
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: "Opening prices / day ($)",
+        },
+      },
+      prices: {
+        beginAtZero: true,
+        position: "right",
+        title: {
+          display: true,
+          text: "Closing prices / day ($)",
+        },
+      },
+    },
+    legend: {
+      position: "right",
+      // labels: {
+      //   fontSize: 25,
+      // },
+    },
   };
-
-  const plotTheChart = () => {
-    fetchStock();
-    return (
-      <Line
-        data={{
-          labels: coordinates.x,
-          datasets: [
-            {
-              label: "Opening prices",
-              data: coordinates.y,
-              backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-              borderColor: ["rgba(255, 99, 132, 1)"],
-              borderWidth: 1,
-            },
-          ],
-        }}
-        height={1200}
-        width={1600}
-        options={{
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          legend: {
-            labels: {
-              fontSize: 25,
-            },
-          },
-        }}
-      />
-    );
-  };
-
   return (
-    <div className="div0">
-      <div className="div1">
-        <h1>CHARTIST</h1>
-      </div>
-
-      <div className="div2">
-        <section className="section1">
-          <select name="Currency" id="currency">
-            <option value="USD">USD</option>
-            <option value="Ruppee">RUPPE</option>
-          </select>
-        </section>
-
-        <section className="section2">
-          <input
-            type="text"
-            placeholder="STOCK SYMBOL"
-            onChange={handleStockSymbol}
-          ></input>
-        </section>
-
-        <section className="section3">
-          <button type="submit" onClick={plotTheChart}>
-            PLOT
-          </button>
-        </section>
-      </div>
-      <div className="div3"></div>
-    </div>
+    // configuring the chart------------------------------>
+    <Line data={data} height={536} width={100} options={options} />
   );
 };
 
