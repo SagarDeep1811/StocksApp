@@ -20,14 +20,14 @@ function App() {
       .then((data) => {
         console.log(stockSymbol);
         console.log(data);
+        const newCoordinates = { x: [], y: [], z: [] };
         for (const [key, v] of data["dataset_data"]["data"].entries()) {
-          setCoordinates(coordinates.x.push(v[0])); //----dates
-          setCoordinates(coordinates.y.push(v[1])); //----opening prices
-          setCoordinates(coordinates.z.push(v[2])); //----closing prices
+          newCoordinates.x.push(v[0]);
+          newCoordinates.y.push(v[1]);
+          newCoordinates.z.push(v[2]);
         }
-        console.log(coordinates.x.slice(0, 30));
-        console.log(coordinates.y.slice(0, 30));
-        console.log(coordinates.z.slice(0, 30));
+        setCoordinates(newCoordinates);
+        console.log("New coordinates: ", newCoordinates);
       })
       .catch((err) => {
         console.log(err);
