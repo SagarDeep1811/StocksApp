@@ -25,16 +25,12 @@ input[type="text"] {
   width: 150px;
   box-sizing: border-box;
   border: none;
-  border-top: 4px solid #eceb92;
-  border-top: 5px solid #488a99;
+  /* border-top: 4px solid #eceb92;
+  border-top: 5px solid #488a99; */
+  border-top: solid 5px #488a99;
   border-radius: 7px;
   margin-left: auto;
   margin-right: auto;
-}
-
-input[type="text"]:hover {
-  border-top: 5px solid #488a99;
-  /* border-top: 5px solid #ecc06f; */
 }
 
 input[type="text"]::placeholder {
@@ -69,7 +65,8 @@ button {
 
 .submitButton:hover,
 button:hover {
-  background-color: #488a99;
+  /* background-color: #488a99; */
+  border-bottom: solid 5px #488a99;
   /* background-color: #ecc06f; */
   color: rgb(255, 255, 255);
 }

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Stock from "./Stock";
-// import Stocks2 from "./Stocks2";
+import ReactVisChart from "./ReactVisChart";
 import "./Stock.css";
 function App() {
-  const [coordinates, setCoordinates] = useState({ x: [], y: [], z: [] });
+  const [coordinates, setCoordinates] = useState({
+    x: [],
+    y: [],
+    z: [],
+  });
+  // const [coordinates, setCoordinates] = useState([ { x: , y: , z: } ]);
   const [stockSymbol, setStockSymbol] = useState("FB");
 
   // fetchStocksData()-------------------------------------------------------------->
@@ -26,6 +31,10 @@ function App() {
           newCoordinates.y.push(v[1]);
           newCoordinates.z.push(v[2]);
         }
+        //  const newCoordinates = [ {x: , y: , z: } ];
+        // for (const [key, v] of data["dataset_data"]["data"].entries()) {
+        //   newCoordinates.push(x : v[0] , y : v[1] , z : v[2]);
+        // }
         setCoordinates(newCoordinates);
         console.log("New coordinates: ", newCoordinates);
       })
@@ -65,7 +74,7 @@ function App() {
 
         <div className="div3">
           <Stock x={coordinates.x} y={coordinates.y} z={coordinates.z} />
-          {/* <Stocks2 stockSymbol={stockSymbol} /> */}
+          {/* <ReactVisChart coordinates={coordinates}/> */}
         </div>
       </div>
     </div>
